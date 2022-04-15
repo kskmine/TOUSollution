@@ -2,10 +2,18 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+@{ Layout = null;}
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div>
+    <a asp-action="CreatePerson">Yeni Kisi Ekle</a>
+    <style>
+        a {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
 </div>
 <div>
     <h2>Contact List</h2>
@@ -16,6 +24,7 @@
             <th>AD</th>
             <th>SOYAD</th>
             <th>TELEFON</th>
+            <th> </th>
         </tr>
         @{
             foreach (Person kisi in Model)
@@ -25,6 +34,7 @@
                     <td>@kisi.Name</td>
                     <td>@kisi.Surname</td>
                     <td>@kisi.Phone</td>
+                    <td><a asp-route-id="@kisi.Id" asp-action="Delete">Sil</a></td>
                 </tr>
 
                 @*<tr>

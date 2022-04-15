@@ -14,10 +14,12 @@ namespace MvcContact.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        IRepositoryPerson _personRepository;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            _personRepository = RepositoryFactory.CreateRepo("PERSON");
         }
 
         public IActionResult Index()
@@ -48,6 +50,12 @@ namespace MvcContact.Controllers
             
 
     
+        }
+
+        public IActionResult Delete(int id)
+        {
+         
+            return View();
         }
 
 
