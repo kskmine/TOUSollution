@@ -36,16 +36,21 @@ namespace MvcContact.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreatePerson()
+        public IActionResult CreatePerson(int? id)//? şey demek null olabilir demek
         {
-            return View();
+            Person model = new Person();
+            if (id.HasValue && id>0)
+            {
+                List<Person> people = _personRepository.List();
+                model = people.First(c => c.Id == id);
+            }
+            return View(model);
         }
 
         [HttpPost]
         public IActionResult CreatePerson(Person person)
         {
-            IRepositoryPerson repositoryPerson = new PersonRepositoryJson();
-            repositoryPerson.AddOrUpdate(person);
+            _personRepository.AddOrUpdate(person);
             return RedirectToAction("Index");
             
 
@@ -54,8 +59,8 @@ namespace MvcContact.Controllers
 
         public IActionResult Delete(int id)
         {
-         
-            return View();
+            _personRepository.Delete(id);
+            return RedirectToAction("Index");
         }
 
 

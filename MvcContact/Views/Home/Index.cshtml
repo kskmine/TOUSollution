@@ -7,13 +7,6 @@
 
 <div>
     <a asp-action="CreatePerson">Yeni Kisi Ekle</a>
-    <style>
-        a {
-            border: 1px solid #dddddd;
-            text-align: center;
-            padding: 20px;
-        }
-    </style>
 </div>
 <div>
     <h2>Contact List</h2>
@@ -24,7 +17,7 @@
             <th>AD</th>
             <th>SOYAD</th>
             <th>TELEFON</th>
-            <th> </th>
+            <th>DELETE </th>
         </tr>
         @{
             foreach (Person kisi in Model)
@@ -34,7 +27,10 @@
                     <td>@kisi.Name</td>
                     <td>@kisi.Surname</td>
                     <td>@kisi.Phone</td>
-                    <td><a asp-route-id="@kisi.Id" asp-action="Delete">Sil</a></td>
+                    <td>
+                        <a onclick="return eminMisiniz(@kisi.Id)" asp-route-id="@kisi.Id" asp-action="Delete">Sil</a>
+                        <a asp-route-id="@kisi.Id" asp-action="CreatePerson">Düzenle</a>
+                    </td>
                 </tr>
 
                 @*<tr>
@@ -48,6 +44,18 @@
 
 
     </table>
+
+
+    <script>
+        function eminMisiniz(id) {
+            //alert(id+"nolu kaydı silmek istediğinizden emin misiniz?");
+            var dialogResult = confirm(id + "nolu kaydı silmek istediğinizden emin misiniz?");
+            console.log(dialogResult);
+            return dialogResult;
+        }
+    </script>
+
+
     <style>
         table {
             font-family: arial, sans-serif;
@@ -61,7 +69,7 @@
             padding: 8px;
         }
 
-        tr:nth-child(even) {
+        a,tr:nth-child(even) {
             background-color: #dddddd;
         }
     </style>
